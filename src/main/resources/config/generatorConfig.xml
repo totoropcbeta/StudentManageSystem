@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="/Users/yuanhang/.m2/repository/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar"/>
+    <context id="generatorConfig" targetRuntime="MyBatis3">
+
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="utf-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!--创建Java类时对注释进行控制-->
+        <commentGenerator>
+            <!-- 不希望生成的注释中包含时间戳 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库地址及登陆账号密码 改成你自己的配置-->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/smsdb"
+                userId="root"
+                password="123456">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <!--是否使用 bigDecimal，默认false。
+        false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+        true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal-->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--生成实体类设置 由mybatis-plus生成-->
+        <javaModelGenerator targetPackage="com.java.userportraitsystem.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否针对string类型的字段在set方法中进行修剪，默认false -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成xml文件设置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--对应的Mapper接口类文件-->
+        <!--type="ANNOTATEDMAPPER",接口的实现通过注解写在接口上面-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.java.userportraitsystem.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--需要自动生成代码的表及对应的类名设置-->
+        <table tableName="student" domainObjectName="Student"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+        </table>
+
+    </context>
+
+</generatorConfiguration>
