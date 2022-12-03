@@ -7,14 +7,53 @@
     <classPathEntry
             location="/Users/yuanhang/.m2/repository/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar"/>
     <context id="generatorConfig" targetRuntime="MyBatis3">
-
+        <!-- 自动识别数据库关键字,默认false,如果设置为true,根据SqlReservedWords中定义的关键字列表;
+        一般保留默认值,遇到数据库关键字（Java关键字）,使用columnOverride覆盖
+        -->
+        <property name="autoDelimitKeywords" value="false"/>
         <!-- 生成的Java文件的编码 -->
-        <property name="javaFileEncoding" value="utf-8"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
         <!-- 格式化java代码 -->
         <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
         <!-- 格式化XML代码 -->
         <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
-        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!-- 自动为entity生成swagger2文档-->
+        <plugin type="mybatis.generator.plugins.GeneratorSwagger2Doc">
+            <property name="apiModelAnnotationPackage" value="io.swagger.annotations.ApiModel"/>
+            <property name="apiModelPropertyAnnotationPackage" value="io.swagger.annotations.ApiModelProperty"/>
+        </plugin>
+        <!-- Example 目标包修改插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ExampleTargetPlugin">
+            <property name="targetPackage" value="com.totoropcbeta.studentmanagesystem.entity.example"/>
+        </plugin>
+        <!-- Lombok插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.LombokPlugin">
+            <!-- @Data 默认开启,同时插件会对子类自动附加@EqualsAndHashCode(callSuper = true)，@ToString(callSuper = true) -->
+            <property name="@Data" value="true"/>
+            <!-- @Builder 必须在 Lombok 版本 >= 1.18.2 的状况下开启，对存在继承关系的类自动替换成@SuperBuilder -->
+            <property name="@Builder" value="false"/>
+            <!-- @NoArgsConstructor 和 @AllArgsConstructor 使用规则和Lombok一致 -->
+            <property name="@AllArgsConstructor" value="false"/>
+            <property name="@NoArgsConstructor" value="false"/>
+            <!-- @Getter、@Setter、@Accessors 等使用规则参见官方文档 -->
+            <property name="@Accessors(chain = true)" value="false"/>
+            <!-- 临时解决IDEA工具对@SuperBuilder的不支持问题，开启后(默认未开启)插件在遇到@SuperBuilder注解时会调用ModelBuilderPlugin来生成相应的builder代码 -->
+            <property name="supportSuperBuilderForIdea" value="false"/>
+        </plugin>
+        <!-- Example Criteria 加强插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ExampleEnhancedPlugin">
+            <!-- 是否支持已通过时的andIf方法（推荐使用when代替），默认支持 -->
+            <property name="enableAndIf" value="true"/>
+        </plugin>
+        <!-- Mapper注解插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.MapperAnnotationPlugin">
+            <!-- @Mapper 默认开启 -->
+            <property name="@Mapper" value="true"/>
+            <!-- @Repository 默认关闭，开启后解决IDEA工具@Autowired报错 -->
+            <property name="@Repository" value="true"/>
+        </plugin>
+<!--        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>-->
+
 
         <!--创建Java类时对注释进行控制-->
         <commentGenerator>
@@ -22,12 +61,14 @@
             <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true"/>
+            <property name="author" value="totoropcbeta"/>
+            <property name="dateFormat" value="yyyy/MM/dd HH:mm:ss"/>
         </commentGenerator>
 
         <!--数据库地址及登陆账号密码 改成你自己的配置-->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3306/smsdb"
+                connectionURL="jdbc:mysql://localhost:3306/smsdb?useSSL=false"
                 userId="root"
                 password="123456">
         </jdbcConnection>
@@ -39,8 +80,8 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <!--生成实体类设置 由mybatis-plus生成-->
-        <javaModelGenerator targetPackage="com.java.userportraitsystem.entity" targetProject="src/main/java">
+        <!--生成实体类设置-->
+        <javaModelGenerator targetPackage="com.totoropcbeta.studentmanagesystem.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <!-- 是否针对string类型的字段在set方法中进行修剪，默认false -->
             <property name="trimStrings" value="true"/>
@@ -53,13 +94,13 @@
 
         <!--对应的Mapper接口类文件-->
         <!--type="ANNOTATEDMAPPER",接口的实现通过注解写在接口上面-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.java.userportraitsystem.mapper"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.totoropcbeta.studentmanagesystem.mapper"
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!--需要自动生成代码的表及对应的类名设置-->
-        <table tableName="student" domainObjectName="Student"
+        <table tableName="student_account" domainObjectName="StudentAccount"
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
