@@ -1,5 +1,6 @@
 package com.totoropcbeta.studentmanagesystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class StudentAccount {
     private String studentName;
 
     @ApiModelProperty(value = "passWord学生账号密码")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // 可接收参数,而不会序列化字符串,即不返回该字段给前端
     private String passWord;
 
     @ApiModelProperty(value = "phone学生手机号")

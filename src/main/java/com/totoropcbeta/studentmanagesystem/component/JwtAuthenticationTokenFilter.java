@@ -1,8 +1,8 @@
 package com.totoropcbeta.studentmanagesystem.component;
 
 import cn.hutool.core.util.StrUtil;
+import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.cache.Cache;
-import com.totoropcbeta.studentmanagesystem.entity.UserDetail;
 import com.totoropcbeta.studentmanagesystem.enums.CacheName;
 import com.totoropcbeta.studentmanagesystem.properties.JwtProperties;
 import com.totoropcbeta.studentmanagesystem.provider.JwtProvider;

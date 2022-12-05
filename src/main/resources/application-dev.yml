@@ -7,7 +7,7 @@ spring:
     url: jdbc:mysql://localhost:3306/smsdb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123456
-    # 配置监控统计拦截的filters,去掉后，监控界面的sql无法统计
+    # 配置监控统计拦截的filters,去掉后,监控界面的sql无法统计
     # filters: stat,wall,log4j
 
     # 初始化druid
@@ -16,5 +16,5 @@ spring:
       min-idle: 5
       max-active: 20
       max-wait: 60000
-      # 配置多久进行一次检测，检测需要关闭的空闲连接 单位毫秒
+      # 配置多久进行一次检测,检测需要关闭的空闲连接 单位毫秒
       time-between-eviction-runs-millis: 60000

@@ -23,7 +23,7 @@ public interface StudentAccountMapper {
 
     List<StudentAccount> selectByExample(StudentAccountExample example);
 
-    StudentAccount selectOneByExample(String studentId);
+    StudentAccount selectOneByStudentId(String studentId);
 
     StudentAccount selectByPrimaryKey(Integer id);
 

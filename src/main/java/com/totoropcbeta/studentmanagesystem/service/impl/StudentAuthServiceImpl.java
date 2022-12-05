@@ -1,8 +1,8 @@
 package com.totoropcbeta.studentmanagesystem.service.impl;
 
 import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
+import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.cache.Cache;
-import com.totoropcbeta.studentmanagesystem.entity.UserDetail;
 import com.totoropcbeta.studentmanagesystem.enums.CacheName;
 import com.totoropcbeta.studentmanagesystem.provider.AuthProvider;
 import com.totoropcbeta.studentmanagesystem.provider.JwtProvider;

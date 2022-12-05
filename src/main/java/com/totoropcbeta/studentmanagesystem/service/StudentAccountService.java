@@ -1,5 +1,6 @@
 package com.totoropcbeta.studentmanagesystem.service;
 
+import com.totoropcbeta.studentmanagesystem.bo.ResetValidInfo;
 import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
 
 /**
@@ -9,5 +10,7 @@ import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
 public interface StudentAccountService {
 
     StudentAccount getOne(String studentId);
+
+    void resetPassWord(ResetValidInfo resetValidInfo);
 
 }

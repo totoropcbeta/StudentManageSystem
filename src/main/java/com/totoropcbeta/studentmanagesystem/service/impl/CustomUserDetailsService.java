@@ -1,9 +1,9 @@
 package com.totoropcbeta.studentmanagesystem.service.impl;
 
 
+import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.entity.RoleInfo;
 import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
-import com.totoropcbeta.studentmanagesystem.entity.UserDetail;
 import com.totoropcbeta.studentmanagesystem.service.RoleInfoService;
 import com.totoropcbeta.studentmanagesystem.service.StudentAccountService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // 根据用户名验证用户
         StudentAccount account = studentAccountService.getOne(s);
         if (account == null) {
-            throw new UsernameNotFoundException("用户名不存在，登陆失败。");
+            throw new UsernameNotFoundException("用户名不存在,登陆失败.");
         }
         UserDetail userDetail = new UserDetail();
         userDetail.setStudentAccount(account);

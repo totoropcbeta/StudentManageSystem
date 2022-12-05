@@ -1,8 +1,8 @@
 package com.totoropcbeta.studentmanagesystem.component;
 
 import com.totoropcbeta.studentmanagesystem.bo.PermissionInfoBO;
+import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.cache.Cache;
-import com.totoropcbeta.studentmanagesystem.entity.UserDetail;
 import com.totoropcbeta.studentmanagesystem.enums.CacheName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDecisionVoter;

@@ -1,5 +1,7 @@
-package com.totoropcbeta.studentmanagesystem.entity;
+package com.totoropcbeta.studentmanagesystem.bo;
 
+import com.totoropcbeta.studentmanagesystem.entity.RoleInfo;
+import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,7 +1,7 @@
 package com.totoropcbeta.studentmanagesystem.provider;
 
+import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
-import com.totoropcbeta.studentmanagesystem.entity.UserDetail;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
