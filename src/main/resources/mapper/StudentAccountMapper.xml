@@ -193,6 +193,9 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
+    <select id="selectOneByExample" parameterType="java.lang.String" resultType="com.totoropcbeta.studentmanagesystem.entity.StudentAccount">
+        select * from student_account where student_id = #{studentId}
+    </select>
     <update id="updateByExampleSelective" parameterType="map">
         update student_account
         <set>

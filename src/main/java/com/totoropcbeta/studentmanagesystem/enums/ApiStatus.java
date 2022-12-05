@@ -20,7 +20,7 @@ public enum ApiStatus {
     /**
      * 权限不足统一编码
      */
-    NOT_PERMISSION(403, "无权访问"),
+    NOT_PERMISSION(403, "无权访问,请登录后继续操作."),
 
     /**
      * 资源不存在统一编码
@@ -30,7 +30,7 @@ public enum ApiStatus {
     /**
      * 业务服务异常统一编码
      */
-    ERROR(500, "服务发生异常，请联系管理员。");
+    ERROR(500, "服务发生异常,请联系管理员.");
 
 
     private final int code;

@@ -22,7 +22,7 @@ public class JwtProperties {
     /**
      * 默认存放token的请求头
      */
-    private String requestHeader = "Authorization";
+    private String requestHeader = "access-token";
 
     /**
      * 默认token前缀

@@ -23,6 +23,8 @@ public interface StudentAccountMapper {
 
     List<StudentAccount> selectByExample(StudentAccountExample example);
 
+    StudentAccount selectOneByExample(String studentId);
+
     StudentAccount selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") StudentAccount record, @Param("example") StudentAccountExample example);

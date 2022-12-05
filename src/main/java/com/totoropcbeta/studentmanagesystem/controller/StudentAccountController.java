@@ -27,6 +27,7 @@ public class StudentAccountController {
     public ResultVo getStudentAccountInfo() {
         String loginAccount = AuthProvider.getLoginAccount();
         StudentAccount studentAccount = studentAccountService.getOne(loginAccount);
+        studentAccount.setPassWord(null);
         return ResultVo.success(studentAccount);
     }
 }

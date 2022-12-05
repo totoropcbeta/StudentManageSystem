@@ -1,8 +1,9 @@
 package com.totoropcbeta.studentmanagesystem.component;
 
 
-import com.totoropcbeta.studentmanagesystem.bo.ApiResult;
+import com.totoropcbeta.studentmanagesystem.enums.ApiStatus;
 import com.totoropcbeta.studentmanagesystem.utils.JacksonUtil;
+import com.totoropcbeta.studentmanagesystem.vo.ResultVo;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -24,12 +25,12 @@ import java.io.IOException;
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setHeader("Cache-Control", "no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().println(JacksonUtil.toJsonString(ApiResult.fail(authException.getMessage())));
+        response.getWriter().println(JacksonUtil.toJsonString(ResultVo.fail(ApiStatus.NOT_PERMISSION.getMsg())));
         response.getWriter().flush();
     }
 }
