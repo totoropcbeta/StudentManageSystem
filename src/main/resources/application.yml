@@ -7,6 +7,11 @@ spring:
     name: user-portrait-system
   profiles:
     active: dev
+  mvc:
+    async:
+      request-timeout: 30000
+  http:
+    log-request-details: true
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
@@ -22,3 +27,4 @@ pagehelper:
   support-methods-arguments: true # 支持通过Mapper接口的参数来传递分页参数,分页插件会从查询方法的参数值中,自动根据上面 params 配置的 字段中取值,查找到合适的值时就会自动分页
   params: count==countSql # 设置当前页记录条数,比如,最后一页只有三条数据,此时count为3
   page-size-zero: true # 默认值为false,当设置参数为true时,如果pageSize=0就会查询全部结果(即没有执行分页查询,但返回结果仍为Page类型)
+

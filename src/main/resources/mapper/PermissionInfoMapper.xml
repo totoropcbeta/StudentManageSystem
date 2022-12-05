@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.totoropcbeta.studentmanagesystem.mapper.PermissionInfoMapper">
+    <resultMap id="BaseResultMap" type="com.totoropcbeta.studentmanagesystem.entity.PermissionInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="permission_name" jdbcType="VARCHAR" property="permissionName"/>
+        <result column="permission_uri" jdbcType="VARCHAR" property="permissionUri"/>
+        <result column="permission_method" jdbcType="VARCHAR" property="permissionMethod"/>
+        <result column="active_status" jdbcType="TINYINT" property="activeStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, permission_name, permission_uri, permission_method, active_status, create_time
+    </sql>
+    <select id="selectByExample"
+            parameterType="com.totoropcbeta.studentmanagesystem.entity.example.PermissionInfoExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from permission_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from permission_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from permission_info
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample"
+            parameterType="com.totoropcbeta.studentmanagesystem.entity.example.PermissionInfoExample">
+        delete from permission_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.totoropcbeta.studentmanagesystem.entity.PermissionInfo">
+        insert into permission_info (id, permission_name, permission_uri,
+                                     permission_method, active_status, create_time)
+        values (#{id,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{permissionUri,jdbcType=VARCHAR},
+                #{permissionMethod,jdbcType=VARCHAR}, #{activeStatus,jdbcType=TINYINT},
+                #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.totoropcbeta.studentmanagesystem.entity.PermissionInfo">
+        insert into permission_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="permissionName != null">
+                permission_name,
+            </if>
+            <if test="permissionUri != null">
+                permission_uri,
+            </if>
+            <if test="permissionMethod != null">
+                permission_method,
+            </if>
+            <if test="activeStatus != null">
+                active_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="permissionName != null">
+                #{permissionName,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionUri != null">
+                #{permissionUri,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionMethod != null">
+                #{permissionMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="activeStatus != null">
+                #{activeStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample"
+            parameterType="com.totoropcbeta.studentmanagesystem.entity.example.PermissionInfoExample"
+            resultType="java.lang.Long">
+        select count(*) from permission_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update permission_info
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.permissionName != null">
+                permission_name = #{record.permissionName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.permissionUri != null">
+                permission_uri = #{record.permissionUri,jdbcType=VARCHAR},
+            </if>
+            <if test="record.permissionMethod != null">
+                permission_method = #{record.permissionMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="record.activeStatus != null">
+                active_status = #{record.activeStatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update permission_info
+        set id = #{record.id,jdbcType=INTEGER},
+        permission_name = #{record.permissionName,jdbcType=VARCHAR},
+        permission_uri = #{record.permissionUri,jdbcType=VARCHAR},
+        permission_method = #{record.permissionMethod,jdbcType=VARCHAR},
+        active_status = #{record.activeStatus,jdbcType=TINYINT},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.totoropcbeta.studentmanagesystem.entity.PermissionInfo">
+        update permission_info
+        <set>
+            <if test="permissionName != null">
+                permission_name = #{permissionName,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionUri != null">
+                permission_uri = #{permissionUri,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionMethod != null">
+                permission_method = #{permissionMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="activeStatus != null">
+                active_status = #{activeStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.totoropcbeta.studentmanagesystem.entity.PermissionInfo">
+        update permission_info
+        set permission_name   = #{permissionName,jdbcType=VARCHAR},
+            permission_uri    = #{permissionUri,jdbcType=VARCHAR},
+            permission_method = #{permissionMethod,jdbcType=VARCHAR},
+            active_status     = #{activeStatus,jdbcType=TINYINT},
+            create_time       = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="listPermissionInfoBO" resultType="com.totoropcbeta.studentmanagesystem.bo.PermissionInfoBO">
+        SELECT a.id, a.permission_name, a.permission_uri, a.permission_method, c.role_name, c.role_code
+        from permission_info a
+                 inner join role_permission_link b on a.id = b.permission_id
+                 inner join role_info c on c.id = b.role_id
+        where a.active_status = 1;
+    </select>
+</mapper>

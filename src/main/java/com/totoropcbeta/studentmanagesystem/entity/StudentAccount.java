@@ -9,11 +9,14 @@ import java.util.Date;
 @ApiModel(value = "com.totoropcbeta.studentmanagesystem.entity.StudentAccount")
 @Data
 public class StudentAccount {
-    @ApiModelProperty(value = "id学生学号（账号）")
+    @ApiModelProperty(value = "id")
     private Integer id;
 
-    @ApiModelProperty(value = "name学生姓名")
-    private String name;
+    @ApiModelProperty(value = "studentId学生学号（账号）")
+    private String studentId;
+
+    @ApiModelProperty(value = "studentName学生姓名")
+    private String studentName;
 
     @ApiModelProperty(value = "passWord学生账号密码")
     private String passWord;

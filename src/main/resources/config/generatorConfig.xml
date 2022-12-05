@@ -103,7 +103,7 @@
         </javaClientGenerator>
 
         <!--需要自动生成代码的表及对应的类名设置-->
-        <table tableName="student_account" domainObjectName="StudentAccount"
+        <table tableName="role_info" domainObjectName="RoleInfo"
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
