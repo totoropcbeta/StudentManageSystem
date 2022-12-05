@@ -50,8 +50,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 放行所有OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // 放行登录方法
-                .antMatchers("/student/auth/login").permitAll()
-                .antMatchers("/api/anon").permitAll()
+                .antMatchers("/student/auth/login", "/student/auth/refresh-token").permitAll()
+                // 放行swagger
+                .antMatchers("/index.html",
+                        "favicon.ico",
+                        "/doc.html",
+                        "/webjars/**",
+                        "/swagger-resources/**",
+                        "/v3/**",
+                        "/swagger-ui/**").permitAll()
                 // 其他请求都需要认证后才能访问
                 .anyRequest().authenticated()
                 // 使用自定义的 accessDecisionManager
