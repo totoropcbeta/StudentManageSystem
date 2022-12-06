@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        log.debug("开始登陆验证,用户名为: {}", s);
+        log.info("开始登陆验证,用户名为: {}", s);
 
         // 根据用户名验证用户
         StudentAccount account = studentAccountService.getOne(s);

@@ -14,16 +14,16 @@ import javax.validation.constraints.NotBlank;
 @ApiModel(value = "重置密码时需校验的参数对象")
 public class ResetValidInfo {
     @NotBlank(message = "手机号不能为空")
-    @ApiModelProperty(value = "手机号")
+    @ApiModelProperty(value = "手机号", required = true)
     private String phone;
     @NotBlank(message = "身份证号不能为空")
-    @ApiModelProperty(value = "身份证号")
+    @ApiModelProperty(value = "身份证号", required = true)
     private String idCard;
     @NotBlank(message = "邮箱不能为空")
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty(value = "邮箱", required = true)
     private String email;
     @NotBlank(message = "新密码不能为空")
-    @ApiModelProperty(value = "新密码")
+    @ApiModelProperty(value = "新密码", required = true)
     private String newPassword;
 
 }
