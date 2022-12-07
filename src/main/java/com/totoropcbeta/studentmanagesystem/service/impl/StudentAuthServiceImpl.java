@@ -42,7 +42,7 @@ public class StudentAuthServiceImpl implements StudentAuthService {
         log.info("创建UsernamePasswordAuthenticationToken: {}", usernameAuthentication);
         // 2 认证
         Authentication authentication = this.authenticationManager.authenticate(usernameAuthentication);
-        log.info("认证 authentication: {}", authentication.getPrincipal().toString());
+        log.info("由CustomUserDetailsService.loadUserByUsername生成的认证主体 authentication: {}", authentication.getPrincipal().toString());
         // 3 保存认证信息
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // 4 生成自定义token

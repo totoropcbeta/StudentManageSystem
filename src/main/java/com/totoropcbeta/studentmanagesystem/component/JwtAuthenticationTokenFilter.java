@@ -47,7 +47,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
         log.info("JWT过滤器通过校验请求头token进行自动登录...");
 
-        // 拿到Authorization请求头内的信息
+        // 拿到access-token请求头内的信息
         String authToken = jwtProvider.getToken(request);
 
         // 判断一下内容是否为空

@@ -1,6 +1,7 @@
 package com.totoropcbeta.studentmanagesystem.service.impl;
 
 
+import cn.hutool.core.lang.Assert;
 import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.entity.RoleInfo;
 import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Slf4j
@@ -32,14 +34,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // 根据用户名验证用户
         StudentAccount account = studentAccountService.getOne(s);
-        if (account == null) {
-            throw new UsernameNotFoundException("用户名不存在,登陆失败.");
-        }
+        Assert.isTrue(Objects.nonNull(account),"用户名或密码错误,请重试.");
         UserDetail userDetail = new UserDetail();
         userDetail.setStudentAccount(account);
         List<RoleInfo> roleInfos = roleInfoService.listRoleByUserId(account.getId());
         userDetail.setRoleInfoList(roleInfos);
-        log.info("获取到的userDetail: {}", userDetail);
+        log.info("生成的userDetail: {}", userDetail);
         return userDetail;
     }
 }
