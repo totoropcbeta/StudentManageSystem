@@ -2,14 +2,6 @@ package com.totoropcbeta.studentmanagesystem.bo;
 
 import lombok.Data;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author 和耳朵
- * @since 2020-07-05 19:05
- */
 @Data
 public class PermissionInfoBO {
 

@@ -16,12 +16,7 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.concurrent.TimeUnit;
 
 /**
- * <p>
  * 配置文件
- * </p>
- *
- * @author 和耳朵
- * @since 2020-06-30
  */
 @Configuration
 public class MyConfig {

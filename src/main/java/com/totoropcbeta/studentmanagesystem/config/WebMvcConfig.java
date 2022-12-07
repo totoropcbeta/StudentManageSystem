@@ -20,7 +20,7 @@ import java.util.TimeZone;
 @Configuration
 @EnableWebMvc
 /**
- * Spring 5.0后，WebMvcConfigurerAdapter被废弃,取代的方法有两种:
+ * Spring 5.0后, WebMvcConfigurerAdapter被废弃,取代的方法有两种:
  * ①implements WebMvcConfigurer(官方推荐)
  * ②extends WebMvcConfigurationSupport
  * @link https://blog.csdn.net/sdname/article/details/109718768

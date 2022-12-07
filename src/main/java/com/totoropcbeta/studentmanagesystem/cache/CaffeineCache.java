@@ -8,14 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-/**
- * <p>
- * CaffeineCache实现类
- * </p>
- *
- * @author 和耳朵
- * @since 2020-06-30
- */
+
 @Slf4j
 @Service("caffeineCache")
 public class CaffeineCache implements Cache {

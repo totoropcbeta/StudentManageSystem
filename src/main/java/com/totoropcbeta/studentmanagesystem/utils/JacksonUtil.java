@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * <p>
- * 封装了Jackson的json工具类，用于代替JSONObject
- * </p>
+ * 封装了Jackson的json工具类, 用于代替JSONObject
  */
 
 @Slf4j

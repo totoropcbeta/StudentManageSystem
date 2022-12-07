@@ -30,28 +30,28 @@
         </plugin>
         <!-- Lombok插件 -->
         <plugin type="com.itfsw.mybatis.generator.plugins.LombokPlugin">
-            <!-- @Data 默认开启,同时插件会对子类自动附加@EqualsAndHashCode(callSuper = true)，@ToString(callSuper = true) -->
+            <!-- @Data 默认开启,同时插件会对子类自动附加@EqualsAndHashCode(callSuper = true), @ToString(callSuper = true) -->
             <property name="@Data" value="true"/>
-            <!-- @Builder 必须在 Lombok 版本 >= 1.18.2 的状况下开启，对存在继承关系的类自动替换成@SuperBuilder -->
+            <!-- @Builder 必须在 Lombok 版本 >= 1.18.2 的状况下开启, 对存在继承关系的类自动替换成@SuperBuilder -->
             <property name="@Builder" value="false"/>
             <!-- @NoArgsConstructor 和 @AllArgsConstructor 使用规则和Lombok一致 -->
             <property name="@AllArgsConstructor" value="false"/>
             <property name="@NoArgsConstructor" value="false"/>
             <!-- @Getter、@Setter、@Accessors 等使用规则参见官方文档 -->
             <property name="@Accessors(chain = true)" value="false"/>
-            <!-- 临时解决IDEA工具对@SuperBuilder的不支持问题，开启后(默认未开启)插件在遇到@SuperBuilder注解时会调用ModelBuilderPlugin来生成相应的builder代码 -->
+            <!-- 临时解决IDEA工具对@SuperBuilder的不支持问题, 开启后(默认未开启)插件在遇到@SuperBuilder注解时会调用ModelBuilderPlugin来生成相应的builder代码 -->
             <property name="supportSuperBuilderForIdea" value="false"/>
         </plugin>
         <!-- Example Criteria 加强插件 -->
         <plugin type="com.itfsw.mybatis.generator.plugins.ExampleEnhancedPlugin">
-            <!-- 是否支持已通过时的andIf方法（推荐使用when代替），默认支持 -->
+            <!-- 是否支持已通过时的andIf方法（推荐使用when代替）, 默认支持 -->
             <property name="enableAndIf" value="true"/>
         </plugin>
         <!-- Mapper注解插件 -->
         <plugin type="com.itfsw.mybatis.generator.plugins.MapperAnnotationPlugin">
             <!-- @Mapper 默认开启 -->
             <property name="@Mapper" value="true"/>
-            <!-- @Repository 默认关闭，开启后解决IDEA工具@Autowired报错 -->
+            <!-- @Repository 默认关闭, 开启后解决IDEA工具@Autowired报错 -->
             <property name="@Repository" value="true"/>
         </plugin>
         <!-- xml重新生成时覆盖 -->
@@ -77,16 +77,16 @@
         </jdbcConnection>
 
         <javaTypeResolver>
-            <!--是否使用 bigDecimal，默认false。
-        false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
-        true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal-->
+            <!--是否使用 bigDecimal, 默认false。
+        false, 把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+        true, 把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal-->
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
         <!--生成实体类设置-->
         <javaModelGenerator targetPackage="com.totoropcbeta.studentmanagesystem.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
-            <!-- 是否针对string类型的字段在set方法中进行修剪，默认false -->
+            <!-- 是否针对string类型的字段在set方法中进行修剪, 默认false -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 

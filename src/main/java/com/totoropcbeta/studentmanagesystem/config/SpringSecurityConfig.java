@@ -26,19 +26,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * <p>
  * SpringSecurity配置文件
- * </p>
- *
- * @author 和耳朵
- * @since 2020-06-30
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
-     * 自定义访问控制，默认是所有访问都要经过认证。
+     * 自定义访问控制, 默认是所有访问都要经过认证。
      *
      * @param http
      * @throws Exception

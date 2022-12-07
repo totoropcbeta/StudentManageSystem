@@ -9,12 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * <p>
- * 服务实现类
- * </p>
- *
- * @author 和耳朵
- * @since 2020-06-30
+ * 角色信息服务实现类
  */
 @Service
 public class RoleInfoServiceImpl implements RoleInfoService {

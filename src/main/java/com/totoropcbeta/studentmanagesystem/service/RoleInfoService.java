@@ -6,12 +6,7 @@ import com.totoropcbeta.studentmanagesystem.entity.RoleInfo;
 import java.util.List;
 
 /**
- * <p>
- * 服务类
- * </p>
- *
- * @author 和耳朵
- * @since 2020-06-30
+ * 角色信息服务类
  */
 public interface RoleInfoService {
 

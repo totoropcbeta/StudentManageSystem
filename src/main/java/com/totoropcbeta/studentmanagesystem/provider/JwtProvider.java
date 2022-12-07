@@ -15,16 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
- * <p>
  * JWT组件
- * </p>
- * <p>
  * 一个完整的JwtToken由三部分组成：头部+负载信息+签名
  * header 存放JwtToken签名的算法 | token的类型：{"alg": "HS512","typ": "JWT"}
  * payload 主要存放用户名、创建时间、生成时间：{"sub":"wang","created":1489079981393,"exp":1489684781}
  * signature 生成算法：HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
- * <p>
- * Created by 和耳朵
  */
 @Slf4j
 @Component
@@ -68,7 +63,7 @@ public class JwtProvider {
     /**
      * 验证token是否还有效
      * <p>
-     * 反解析出token中信息，然后与参数中的信息比较，再校验过期时间
+     * 反解析出token中信息, 然后与参数中的信息比较, 再校验过期时间
      *
      * @param token       客户端传入的token
      * @param userDetails 从数据库中查询出来的用户信息
@@ -81,7 +76,7 @@ public class JwtProvider {
 
     /**
      * 刷新token
-     * 过滤器会对请求进行验证，所以这里可以不必验证
+     * 过滤器会对请求进行验证, 所以这里可以不必验证
      *
      * @param oldToken 带tokenHead的token
      */
@@ -91,7 +86,7 @@ public class JwtProvider {
         // token反解析
         Claims claims = getClaimsFromToken(token);
 
-        //如果token在30分钟之内刚刷新过，返回原token
+        //如果token在30分钟之内刚刷新过, 返回原token
         if (tokenRefreshJustBefore(claims)) {
             return AccessToken.builder().loginAccount(claims.getSubject()).accessToken(oldToken).expirationTime(claims.getExpiration()).build();
         } else {

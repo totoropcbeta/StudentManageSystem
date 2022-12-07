@@ -19,17 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * <p>
  * JWT登录过滤器
- * </p>
- * <p>
- * 拿到请求头中的token解析出其中的用户信息，
- * 将用户信息传给下一条过滤器，
+ * 拿到请求头中的token解析出其中的用户信息, 
+ * 将用户信息传给下一条过滤器, 
  * 拿到上下文对象赋值到上下文。
- * <p>
- *
- * @author 和耳朵
- * @since 2020-06-30
  */
 @Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
@@ -52,7 +45,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         // 判断一下内容是否为空
         if (StrUtil.isNotEmpty(authToken) && authToken.startsWith(jwtProperties.getTokenPrefix())) {
-            // 去掉token前缀(Bearer )，拿到真实token
+            // 去掉token前缀(Bearer ), 拿到真实token
             authToken = authToken.substring(jwtProperties.getTokenPrefix().length());
 
             // 拿到token里面的登录账号
@@ -65,7 +58,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 // 拿到用户信息后验证用户信息与token
                 if (userDetails != null && jwtProvider.validateToken(authToken, userDetails)) {
 
-                    // 组装authentication对象，构造参数是Principal Credentials 与 Authorities
+                    // 组装authentication对象, 构造参数是Principal Credentials 与 Authorities
                     // 后面的拦截器里面会用到 grantedAuthorities 方法
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
 

@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // 根据用户名验证用户
         StudentAccount account = studentAccountService.getOne(s);
-        Assert.isTrue(Objects.nonNull(account),"用户名或密码错误,请重试.");
+        Assert.isTrue(Objects.nonNull(account), "用户名或密码错误,请重试.");
         UserDetail userDetail = new UserDetail();
         userDetail.setStudentAccount(account);
         List<RoleInfo> roleInfos = roleInfoService.listRoleByUserId(account.getId());
