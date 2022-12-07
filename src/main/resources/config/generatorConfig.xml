@@ -28,6 +28,8 @@
             <!-- 生成swagger3相关注解 -->
             <!-- 是否使用表的注释作为ApiModel的value 需在jdbcConnection设置useInformationSchema为true-->
             <property name="useTableComment" value="true"/>
+            <!-- 是否在字段上标注required -->
+            <property name="markFieldRequired" value="false"/>
             <property name="apiModelAnnotationPackage" value="io.swagger.annotations.ApiModel"/>
             <property name="apiModelPropertyAnnotationPackage" value="io.swagger.annotations.ApiModelProperty"/>
         </plugin>

@@ -12,13 +12,9 @@ import java.util.List;
 /**
  * @author yuanhang08
  * @date 2022年12月07日
- * @description 根据数据库注释对实体类生成注解,扩展支持swagger3.0,允许开启或者关闭注解生成
+ * @description 根据数据库注释对实体类生成注解, 扩展支持swagger3.0, 允许开启或者关闭注解生成
  */
 public class GenerateSwagger3Doc extends PluginAdapter {
-    /**
-     * 替换ApiModel(value=xxx) value包含的.
-     */
-    public static final String SPLIT_CHAR = "$";
 
     public boolean validate(List<String> list) {
         return true;
@@ -39,7 +35,7 @@ public class GenerateSwagger3Doc extends PluginAdapter {
             // 未设置value时swagger默认使用类名作为value
             classAnnotation = "@ApiModel";
         } else {
-            classAnnotation = "@ApiModel(value = \"" + introspectedTable.getRemarks() + "\")";
+            classAnnotation = "@ApiModel(value = \"" + introspectedTable.getRemarks().replace(".", "") + "\")";
         }
 
         String generatorJavaDoc = properties.getProperty("generatorJavaDoc", "TRUE");
@@ -67,6 +63,8 @@ public class GenerateSwagger3Doc extends PluginAdapter {
     private void generatorSwaggerAnnotation(TopLevelClass topLevelClass, Field field, String classAnnotation, IntrospectedColumn introspectedColumn) {
         String apiModelAnnotationPackage = properties.getProperty("apiModelAnnotationPackage");
         String apiModelPropertyAnnotationPackage = properties.getProperty("apiModelPropertyAnnotationPackage");
+        // 是否在字段上标注required
+        boolean markFieldRequired = Boolean.parseBoolean(properties.getProperty("markFieldRequired", "false"));
         if (null == apiModelAnnotationPackage) {
             apiModelAnnotationPackage = "io.swagger.annotations.ApiModel";
         }
@@ -80,10 +78,10 @@ public class GenerateSwagger3Doc extends PluginAdapter {
         topLevelClass.addImportedType(apiModelAnnotationPackage);
         topLevelClass.addImportedType(apiModelPropertyAnnotationPackage);
         // 去掉了实体类Java属性, 根据字段是否允许为null判定是否为必需字段
-        if (introspectedColumn.isNullable()) {
-            field.addAnnotation("@ApiModelProperty(value=\"" + introspectedColumn.getRemarks() + "\")");
-        } else {
+        if (markFieldRequired && !introspectedColumn.isNullable()) {
             field.addAnnotation("@ApiModelProperty(required = true, value = \"" + introspectedColumn.getRemarks() + "\")");
+        } else {
+            field.addAnnotation("@ApiModelProperty(value = \"" + introspectedColumn.getRemarks() + "\")");
         }
 
     }
