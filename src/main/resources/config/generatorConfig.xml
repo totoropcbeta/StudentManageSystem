@@ -19,8 +19,15 @@
         <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
         <!-- 格式化XML代码 -->
         <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
-        <!-- 自动为entity生成swagger2文档-->
-        <plugin type="mybatis.generator.plugins.GeneratorSwagger2Doc">
+        <!-- 自动为entity生成swagger3文档-->
+        <plugin type="com.totoropcbeta.studentmanagesystem.component.GenerateSwagger3Doc">
+            <!-- 是否生成JavaDoc注释 -->
+            <property name="generatorJavaDoc" value="false"/>
+            <!-- 是否生成SwaggerDoc注释 -->
+            <property name="generatorSwaggerDoc" value="true"/>
+            <!-- 生成swagger3相关注解 -->
+            <!-- 是否使用表的注释作为ApiModel的value 需在jdbcConnection设置useInformationSchema为true-->
+            <property name="useTableComment" value="true"/>
             <property name="apiModelAnnotationPackage" value="io.swagger.annotations.ApiModel"/>
             <property name="apiModelPropertyAnnotationPackage" value="io.swagger.annotations.ApiModelProperty"/>
         </plugin>
@@ -74,12 +81,14 @@
                 connectionURL="jdbc:mysql://localhost:3306/smsdb?useSSL=false"
                 userId="root"
                 password="123456">
+            <!-- 设置 useInformationSchema 属性为 true,GenerateSwagger3Doc才能获取到表注释 -->
+            <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
         <javaTypeResolver>
             <!--是否使用 bigDecimal, 默认false。
-        false, 把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
-        true, 把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal-->
+            false, 把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+            true, 把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal-->
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
