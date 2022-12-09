@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @Builder
 public class AccessToken {
-    private String loginAccount;
+    private String userId;
     private String accessToken;
     private Date expirationTime;
 }

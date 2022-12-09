@@ -1,15 +1,15 @@
 package com.totoropcbeta.studentmanagesystem.service;
 
 import com.totoropcbeta.studentmanagesystem.bo.ResetValidInfo;
-import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
+import com.totoropcbeta.studentmanagesystem.entity.UserInfo;
 
 /**
  * @author yuanhang08
  * @date 2022年12月05日
  */
-public interface StudentAccountService {
+public interface UserInfoService {
 
-    StudentAccount getOne(String studentId);
+    UserInfo getOne(String studentId);
 
     void resetPassWord(ResetValidInfo resetValidInfo);
 

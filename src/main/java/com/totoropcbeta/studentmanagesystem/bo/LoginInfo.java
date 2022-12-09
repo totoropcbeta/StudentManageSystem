@@ -8,8 +8,8 @@ import javax.validation.constraints.NotBlank;
 public class LoginInfo {
 
     @NotBlank(message = "登陆用户名不能为空")
-    private String loginAccount;
+    private String userId;
 
     @NotBlank(message = "登陆密码不能为空")
-    private String passWord;
+    private String password;
 }

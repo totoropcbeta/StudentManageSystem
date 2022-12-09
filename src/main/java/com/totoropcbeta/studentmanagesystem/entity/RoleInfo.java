@@ -6,24 +6,27 @@ import lombok.Data;
 
 import java.util.Date;
 
-@ApiModel(value = "com.totoropcbeta.studentmanagesystem.entity.RoleInfo")
+@ApiModel(value = "角色信息表")
 @Data
 public class RoleInfo {
-    @ApiModelProperty(value = "id角色表主键")
+    @ApiModelProperty(value = "角色表主键")
     private Integer id;
 
-    @ApiModelProperty(value = "roleName角色名称")
+    @ApiModelProperty(value = "角色名称")
     private String roleName;
 
-    @ApiModelProperty(value = "roleCode角色编码")
+    @ApiModelProperty(value = "角色编码")
     private String roleCode;
 
-    @ApiModelProperty(value = "roleRemark角色备注")
+    @ApiModelProperty(value = "角色备注")
     private String roleRemark;
 
-    @ApiModelProperty(value = "activeStatus逻辑删除")
+    @ApiModelProperty(value = "是否有效（0-无效,1-有效）")
     private Byte activeStatus;
 
-    @ApiModelProperty(value = "createTime角色创建时间")
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    private Date updateTime;
 }

@@ -1,7 +1,7 @@
 package com.totoropcbeta.studentmanagesystem.bo;
 
 import com.totoropcbeta.studentmanagesystem.entity.RoleInfo;
-import com.totoropcbeta.studentmanagesystem.entity.StudentAccount;
+import com.totoropcbeta.studentmanagesystem.entity.UserInfo;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,13 +16,13 @@ import java.util.List;
 public class UserDetail implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private StudentAccount studentAccount;
+    private UserInfo userInfo;
     private List<RoleInfo> roleInfoList;
     private Collection<? extends GrantedAuthority> grantedAuthorities;
     private List<String> roles;
 
-    public Integer getUserId() {
-        return this.studentAccount.getId();
+    public String getUserId() {
+        return this.userInfo.getUserId();
     }
 
     @Override
@@ -41,12 +41,12 @@ public class UserDetail implements Serializable, UserDetails {
 
     @Override
     public String getPassword() {
-        return this.studentAccount.getPassWord();
+        return this.userInfo.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.studentAccount.getStudentId();
+        return this.userInfo.getUserName();
     }
 
     /**

@@ -2,13 +2,13 @@ package com.totoropcbeta.studentmanagesystem.provider;
 
 import cn.hutool.core.date.DateUtil;
 import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
+import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +37,8 @@ public class JwtProvider {
     /**
      * 根据用户信息生成token
      */
-    public AccessToken createToken(UserDetails userDetails) {
-        return createToken(userDetails.getUsername());
+    public AccessToken createToken(UserDetail userDetail) {
+        return createToken(userDetail.getUserId());
     }
 
     /**
@@ -57,7 +57,7 @@ public class JwtProvider {
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, jwtProperties.getApiSecretKey())
                 .compact();
-        return AccessToken.builder().loginAccount(subject).accessToken(token).expirationTime(expirationDate).build();
+        return AccessToken.builder().userId(subject).accessToken(token).expirationTime(expirationDate).build();
     }
 
     /**
@@ -65,12 +65,12 @@ public class JwtProvider {
      * <p>
      * 反解析出token中信息, 然后与参数中的信息比较, 再校验过期时间
      *
-     * @param token       客户端传入的token
-     * @param userDetails 从数据库中查询出来的用户信息
+     * @param token      客户端传入的token
+     * @param userDetail 从数据库中查询出来的用户信息
      */
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, UserDetail userDetail) {
         Claims claims = getClaimsFromToken(token);
-        return claims.getSubject().equals(userDetails.getUsername()) && !isTokenExpired(claims);
+        return claims.getSubject().equals(userDetail.getUserId()) && !isTokenExpired(claims);
     }
 
 
@@ -88,7 +88,7 @@ public class JwtProvider {
 
         //如果token在30分钟之内刚刷新过, 返回原token
         if (tokenRefreshJustBefore(claims)) {
-            return AccessToken.builder().loginAccount(claims.getSubject()).accessToken(oldToken).expirationTime(claims.getExpiration()).build();
+            return AccessToken.builder().userId(claims.getSubject()).accessToken(oldToken).expirationTime(claims.getExpiration()).build();
         } else {
             return createToken(claims.getSubject());
         }

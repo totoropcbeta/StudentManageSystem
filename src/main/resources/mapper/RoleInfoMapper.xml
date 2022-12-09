@@ -8,6 +8,7 @@
         <result column="role_remark" jdbcType="VARCHAR" property="roleRemark"/>
         <result column="active_status" jdbcType="TINYINT" property="activeStatus"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -70,7 +71,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        id, role_name, role_code, role_remark, active_status, create_time
+        id, role_name, role_code, role_remark, active_status, create_time, update_time
     </sql>
     <select id="selectByExample" parameterType="com.totoropcbeta.studentmanagesystem.entity.example.RoleInfoExample"
             resultMap="BaseResultMap">
@@ -107,9 +108,11 @@
     </delete>
     <insert id="insert" parameterType="com.totoropcbeta.studentmanagesystem.entity.RoleInfo">
         insert into role_info (id, role_name, role_code,
-                               role_remark, active_status, create_time)
+                               role_remark, active_status, create_time,
+                               update_time)
         values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR},
-                #{roleRemark,jdbcType=VARCHAR}, #{activeStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
+                #{roleRemark,jdbcType=VARCHAR}, #{activeStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.totoropcbeta.studentmanagesystem.entity.RoleInfo">
         insert into role_info
@@ -132,6 +135,9 @@
             <if test="createTime != null">
                 create_time,
             </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -152,6 +158,9 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
     <select id="countByExample" parameterType="com.totoropcbeta.studentmanagesystem.entity.example.RoleInfoExample"
@@ -160,6 +169,18 @@
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
+    </select>
+    <select id="listRoleByUserId" resultType="com.totoropcbeta.studentmanagesystem.entity.RoleInfo">
+        SELECT a.id,
+               a.role_name,
+               a.role_code,
+               a.role_remark,
+               a.active_status,
+               a.create_time
+        FROM `role_info` a
+                 INNER JOIN `user_role_link` b ON a.id = b.role_id
+        WHERE b.user_id = #{userId}
+          and a.active_status = 1
     </select>
     <update id="updateByExampleSelective" parameterType="map">
         update role_info
@@ -182,6 +203,9 @@
             <if test="record.createTime != null">
                 create_time = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -194,7 +218,8 @@
         role_code = #{record.roleCode,jdbcType=VARCHAR},
         role_remark = #{record.roleRemark,jdbcType=VARCHAR},
         active_status = #{record.activeStatus,jdbcType=TINYINT},
-        create_time = #{record.createTime,jdbcType=TIMESTAMP}
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -217,6 +242,9 @@
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -226,21 +254,8 @@
             role_code     = #{roleCode,jdbcType=VARCHAR},
             role_remark   = #{roleRemark,jdbcType=VARCHAR},
             active_status = #{activeStatus,jdbcType=TINYINT},
-            create_time   = #{createTime,jdbcType=TIMESTAMP}
+            create_time   = #{createTime,jdbcType=TIMESTAMP},
+            update_time   = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
-
-    <select id="listRoleByUserId" parameterType="java.lang.Integer"
-            resultType="com.totoropcbeta.studentmanagesystem.entity.RoleInfo">
-        SELECT a.id,
-               a.role_name,
-               a.role_code,
-               a.role_remark,
-               a.active_status,
-               a.create_time
-        FROM `role_info` a
-                 INNER JOIN `user_role_link` b ON a.id = b.role_id
-        WHERE b.user_id = #{userId}
-          and a.active_status = 1
-    </select>
 </mapper>

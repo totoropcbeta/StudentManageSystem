@@ -3,7 +3,7 @@ package com.totoropcbeta.studentmanagesystem.controller;
 import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
 import com.totoropcbeta.studentmanagesystem.bo.LoginInfo;
 import com.totoropcbeta.studentmanagesystem.provider.JwtProvider;
-import com.totoropcbeta.studentmanagesystem.service.StudentAuthService;
+import com.totoropcbeta.studentmanagesystem.service.UserAuthService;
 import com.totoropcbeta.studentmanagesystem.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,33 +22,33 @@ import javax.validation.Valid;
  * @date 2022年12月04日
  */
 @RestController
-@RequestMapping(value = "/student/auth")
-@Api(tags = "学生账号认证")
+@RequestMapping(value = "/user/auth")
+@Api(tags = "用户账号认证")
 @Validated
-public class StudentAuthController {
+public class UserAuthController {
     @Autowired
-    private StudentAuthService studentAuthService;
+    private UserAuthService userAuthService;
     @Autowired
     private JwtProvider jwtProvider;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "登录账号")
     public ResultVo login(@Valid @RequestBody LoginInfo loginInfo) {
-        AccessToken login = studentAuthService.login(loginInfo.getLoginAccount(), loginInfo.getPassWord());
+        AccessToken login = userAuthService.login(loginInfo.getUserId(), loginInfo.getPassword());
         return ResultVo.success(login);
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ApiOperation(value = "注销账号")
     public ResultVo logout() {
-        studentAuthService.logout();
+        userAuthService.logout();
         return ResultVo.success("success");
     }
 
     @RequestMapping(value = "/refresh-token", method = RequestMethod.POST)
     @ApiOperation(value = "刷新token")
     public ResultVo refreshToken(HttpServletRequest request) {
-        AccessToken accessToken = studentAuthService.refreshToken(jwtProvider.getToken(request));
+        AccessToken accessToken = userAuthService.refreshToken(jwtProvider.getToken(request));
         return ResultVo.success(accessToken);
     }
 

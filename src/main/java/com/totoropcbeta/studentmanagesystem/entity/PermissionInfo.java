@@ -6,24 +6,27 @@ import lombok.Data;
 
 import java.util.Date;
 
-@ApiModel(value = "com.totoropcbeta.studentmanagesystem.entity.PermissionInfo")
+@ApiModel(value = "权限信息表")
 @Data
 public class PermissionInfo {
-    @ApiModelProperty(value = "id权限表主键")
+    @ApiModelProperty(value = "权限表主键")
     private Integer id;
 
-    @ApiModelProperty(value = "permissionName权限名称")
+    @ApiModelProperty(value = "权限名称")
     private String permissionName;
 
-    @ApiModelProperty(value = "permissionUri权限URI")
+    @ApiModelProperty(value = "权限URI")
     private String permissionUri;
 
-    @ApiModelProperty(value = "permissionMethod权限方法类型")
+    @ApiModelProperty(value = "权限方法类型")
     private String permissionMethod;
 
-    @ApiModelProperty(value = "activeStatus逻辑删除")
+    @ApiModelProperty(value = "是否有效（0-无效,1-有效）")
     private Byte activeStatus;
 
-    @ApiModelProperty(value = "createTime权限创建时间")
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    private Date updateTime;
 }

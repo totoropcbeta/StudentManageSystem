@@ -8,6 +8,7 @@
         <result column="permission_method" jdbcType="VARCHAR" property="permissionMethod"/>
         <result column="active_status" jdbcType="TINYINT" property="activeStatus"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -70,7 +71,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        id, permission_name, permission_uri, permission_method, active_status, create_time
+        id, permission_name, permission_uri, permission_method, active_status, create_time,
+        update_time
     </sql>
     <select id="selectByExample"
             parameterType="com.totoropcbeta.studentmanagesystem.entity.example.PermissionInfoExample"
@@ -109,10 +111,12 @@
     </delete>
     <insert id="insert" parameterType="com.totoropcbeta.studentmanagesystem.entity.PermissionInfo">
         insert into permission_info (id, permission_name, permission_uri,
-                                     permission_method, active_status, create_time)
+                                     permission_method, active_status, create_time,
+                                     update_time)
         values (#{id,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{permissionUri,jdbcType=VARCHAR},
                 #{permissionMethod,jdbcType=VARCHAR}, #{activeStatus,jdbcType=TINYINT},
-                #{createTime,jdbcType=TIMESTAMP})
+                #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.totoropcbeta.studentmanagesystem.entity.PermissionInfo">
         insert into permission_info
@@ -135,6 +139,9 @@
             <if test="createTime != null">
                 create_time,
             </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -155,6 +162,9 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
     <select id="countByExample"
@@ -164,6 +174,13 @@
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
+    </select>
+    <select id="listPermissionInfoBO" resultType="com.totoropcbeta.studentmanagesystem.bo.PermissionInfoBO">
+        SELECT a.id, a.permission_name, a.permission_uri, a.permission_method, c.role_name, c.role_code
+        from permission_info a
+                 inner join role_permission_link b on a.id = b.permission_id
+                 inner join role_info c on c.id = b.role_id
+        where a.active_status = 1;
     </select>
     <update id="updateByExampleSelective" parameterType="map">
         update permission_info
@@ -186,6 +203,9 @@
             <if test="record.createTime != null">
                 create_time = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -198,7 +218,8 @@
         permission_uri = #{record.permissionUri,jdbcType=VARCHAR},
         permission_method = #{record.permissionMethod,jdbcType=VARCHAR},
         active_status = #{record.activeStatus,jdbcType=TINYINT},
-        create_time = #{record.createTime,jdbcType=TIMESTAMP}
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -221,6 +242,9 @@
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -230,15 +254,8 @@
             permission_uri    = #{permissionUri,jdbcType=VARCHAR},
             permission_method = #{permissionMethod,jdbcType=VARCHAR},
             active_status     = #{activeStatus,jdbcType=TINYINT},
-            create_time       = #{createTime,jdbcType=TIMESTAMP}
+            create_time       = #{createTime,jdbcType=TIMESTAMP},
+            update_time       = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
-
-    <select id="listPermissionInfoBO" resultType="com.totoropcbeta.studentmanagesystem.bo.PermissionInfoBO">
-        SELECT a.id, a.permission_name, a.permission_uri, a.permission_method, c.role_name, c.role_code
-        from permission_info a
-                 inner join role_permission_link b on a.id = b.permission_id
-                 inner join role_info c on c.id = b.role_id
-        where a.active_status = 1;
-    </select>
 </mapper>

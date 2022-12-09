@@ -45,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 放行所有OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // 放行登录方法
-                .antMatchers("/student/auth/login", "/student/auth/refresh-token").permitAll()
+                .antMatchers("/user/auth/login", "/user/auth/refresh-token").permitAll()
                 // 放行swagger
                 .antMatchers("/index.html",
                         "favicon.ico",
