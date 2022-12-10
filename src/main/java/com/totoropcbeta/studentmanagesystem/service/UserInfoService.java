@@ -9,7 +9,7 @@ import com.totoropcbeta.studentmanagesystem.entity.UserInfo;
  */
 public interface UserInfoService {
 
-    UserInfo getOne(String studentId);
+    UserInfo getOne(String userId);
 
     void resetPassWord(ResetValidInfo resetValidInfo);
 

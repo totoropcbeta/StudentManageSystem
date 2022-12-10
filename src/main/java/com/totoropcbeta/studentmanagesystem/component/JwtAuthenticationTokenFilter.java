@@ -50,7 +50,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
             // 拿到token里面的登录账号
             String userId = jwtProvider.getSubjectFromToken(authToken);
-            log.info("token里面的登录账号: {}", userId);
+            log.info("token解析到的登录账号: {}", userId);
             if (StrUtil.isNotEmpty(userId) && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 查询用户
                 UserDetail userDetail = caffeineCache.get(CacheName.USER, userId, UserDetail.class);

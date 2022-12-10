@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface RoleInfoService {
 
-    List<RoleInfo> listRoleByUserId(Integer userId);
+    List<RoleInfo> listRoleByUserId(String userId);
 
 }

@@ -1,5 +1,8 @@
 package com.totoropcbeta.studentmanagesystem.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ApiStatus {
 
     /**
@@ -41,11 +44,4 @@ public enum ApiStatus {
         this.msg = msg;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 }

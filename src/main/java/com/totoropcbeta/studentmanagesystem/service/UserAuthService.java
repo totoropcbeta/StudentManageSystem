@@ -8,7 +8,7 @@ import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
  */
 public interface UserAuthService {
 
-    AccessToken login(String student_id, String passWord);
+    AccessToken login(String user_id, String password);
 
     void logout();
 

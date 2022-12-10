@@ -33,5 +33,5 @@ public interface RoleInfoMapper {
 
     int updateByPrimaryKey(RoleInfo record);
 
-    List<RoleInfo> listRoleByUserId(Integer userId);
+    List<RoleInfo> listRoleByUserId(String userId);
 }

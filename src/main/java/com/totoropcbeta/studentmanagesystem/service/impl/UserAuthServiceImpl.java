@@ -57,6 +57,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     public void logout() {
         caffeineCache.remove(CacheName.USER, AuthProvider.getUserId());
         SecurityContextHolder.clearContext();
+        log.info("用户 {} 成功注销登录", AuthProvider.getUserId());
     }
 
     @Override

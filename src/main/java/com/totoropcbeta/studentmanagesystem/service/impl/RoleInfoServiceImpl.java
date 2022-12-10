@@ -17,7 +17,7 @@ public class RoleInfoServiceImpl implements RoleInfoService {
     private RoleInfoMapper roleInfoMapper;
 
     @Override
-    public List<RoleInfo> listRoleByUserId(Integer userId) {
+    public List<RoleInfo> listRoleByUserId(String userId) {
 
         return roleInfoMapper.listRoleByUserId(userId);
     }

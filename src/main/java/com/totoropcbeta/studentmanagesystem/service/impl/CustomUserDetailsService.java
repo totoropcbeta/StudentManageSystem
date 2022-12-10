@@ -34,10 +34,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // 根据用户名验证用户
         UserInfo userInfo = UserInfoService.getOne(userId);
-        Assert.isTrue(Objects.nonNull(userInfo), "用户名或密码错误,请重试.");
+        Assert.isTrue(Objects.nonNull(userInfo), "用户名不存在");
         UserDetail userDetail = new UserDetail();
         userDetail.setUserInfo(userInfo);
-        List<RoleInfo> roleInfos = roleInfoService.listRoleByUserId(userInfo.getId());
+        List<RoleInfo> roleInfos = roleInfoService.listRoleByUserId(userInfo.getUserId());
         userDetail.setRoleInfoList(roleInfos);
         log.info("生成的userDetail: {}", userDetail);
         return userDetail;

@@ -22,8 +22,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper UserInfoMapper;
 
     @Override
-    public UserInfo getOne(String studentId) {
-        UserInfo UserInfo = UserInfoMapper.selectOneByStudentId(studentId);
+    public UserInfo getOne(String userId) {
+        UserInfo UserInfo = UserInfoMapper.selectOneByStudentId(userId);
         return UserInfo;
     }
 
