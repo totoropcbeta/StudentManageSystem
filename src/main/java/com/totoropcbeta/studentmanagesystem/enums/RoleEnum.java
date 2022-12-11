@@ -7,12 +7,13 @@ import lombok.Getter;
 @Getter
 public enum RoleEnum {
 
-    STUDENT("STUDENT", "学生"),
-    TEACHER("TEACHER", "教师"),
-    ADMIN("ADMIN", "管理"),
-    LOGISTICS("LOGISTICS", "后勤");
+    STUDENT(1, "STUDENT", "学生"),
+    TEACHER(2, "TEACHER", "教师"),
+    ADMIN(3, "ADMIN", "管理"),
+    LOGISTICS(4, "LOGISTICS", "后勤");
 
 
+    private final Integer roleId;
     private final String code;
     private final String value;
 

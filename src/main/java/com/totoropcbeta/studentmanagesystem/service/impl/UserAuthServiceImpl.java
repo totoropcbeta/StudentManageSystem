@@ -1,10 +1,22 @@
 package com.totoropcbeta.studentmanagesystem.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.Assert;
 import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
 import com.totoropcbeta.studentmanagesystem.bo.RegisterInfo;
 import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.cache.Cache;
+import com.totoropcbeta.studentmanagesystem.entity.MatriculateStudent;
+import com.totoropcbeta.studentmanagesystem.entity.UserInfo;
+import com.totoropcbeta.studentmanagesystem.entity.UserRoleLink;
+import com.totoropcbeta.studentmanagesystem.entity.example.MatriculateStudentExample;
+import com.totoropcbeta.studentmanagesystem.enums.ActiveStatus;
 import com.totoropcbeta.studentmanagesystem.enums.CacheName;
+import com.totoropcbeta.studentmanagesystem.enums.IsRegistered;
+import com.totoropcbeta.studentmanagesystem.enums.RoleEnum;
+import com.totoropcbeta.studentmanagesystem.mapper.MatriculateStudentMapper;
+import com.totoropcbeta.studentmanagesystem.mapper.UserInfoMapper;
+import com.totoropcbeta.studentmanagesystem.mapper.UserRoleLinkMapper;
 import com.totoropcbeta.studentmanagesystem.provider.AuthProvider;
 import com.totoropcbeta.studentmanagesystem.provider.JwtProvider;
 import com.totoropcbeta.studentmanagesystem.service.UserAuthService;
@@ -14,8 +26,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author yuanhang08
@@ -32,6 +47,13 @@ public class UserAuthServiceImpl implements UserAuthService {
     private JwtProvider jwtProvider;
     @Autowired
     private Cache caffeineCache;
+
+    @Autowired
+    private MatriculateStudentMapper matriculateStudentMapper;
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+    @Autowired
+    private UserRoleLinkMapper userRoleLinkMapper;
 
 
     @Override
@@ -71,7 +93,45 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public String register(RegisterInfo registerInfo) {
-        return null;
+        UserInfo userInfo = new UserInfo();
+        BeanUtil.copyProperties(registerInfo, userInfo, "password");
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encodePassword = bCryptPasswordEncoder.encode(registerInfo.getPassword());
+        userInfo.setPassword(encodePassword);
+        userInfo.setUserId(generateStudentUserId(registerInfo).toString());
+        userInfo.setActiveStatus(ActiveStatus.ACTIVE.getCode());
+        Assert.isTrue(userInfoMapper.insertSelective(userInfo) == 1, "注册失败,请重试或联系管理员.");
+        MatriculateStudent matriculateStudent = new MatriculateStudent();
+        matriculateStudent.setIsRegistered((byte) 1);
+        MatriculateStudentExample matriculateStudentExample = new MatriculateStudentExample();
+        matriculateStudentExample.createCriteria().andIdCardEqualTo(userInfo.getIdCard()).andIsRegisteredEqualTo(IsRegistered.UNRegistered.getCode());
+        Assert.isTrue(matriculateStudentMapper.updateByExampleSelective(matriculateStudent, matriculateStudentExample) == 1, "更新录取信息时出现错误,请联系管理员.");
+        UserRoleLink userRoleLink = new UserRoleLink();
+        userRoleLink.setUserId(userInfo.getUserId());
+        userRoleLink.setRoleId(RoleEnum.STUDENT.getRoleId());
+        Assert.isTrue(userRoleLinkMapper.insertSelective(userRoleLink) == 1, "关联用户角色信息时出现错误,请联系管理员.");
+        return userInfo.getUserId();
+    }
+
+    private StringBuilder generateStudentUserId(RegisterInfo registerInfo) {
+        String idCard = registerInfo.getIdCard();
+        MatriculateStudentExample matriculateStudentExample = new MatriculateStudentExample();
+        matriculateStudentExample.createCriteria().andIdCardEqualTo(idCard).andIsRegisteredEqualTo(IsRegistered.UNRegistered.getCode());
+        List<MatriculateStudent> matriculateStudents = matriculateStudentMapper.selectByExample(matriculateStudentExample);
+        Assert.isTrue(matriculateStudents.size() == 1, "您已注册或存在相同身份证用户,请尝试直接登录或联系管理员.");
+        MatriculateStudent matriculateStudent = matriculateStudents.get(0);
+        String graduateYear = matriculateStudent.getGraduateYear();
+        String collegeId = matriculateStudent.getCollegeId().toString();
+        String majorId = matriculateStudent.getMajorId().toString();
+        String classId = matriculateStudent.getClassId().toString();
+        String orderNum = matriculateStudent.getOrderNum().toString();
+        StringBuilder userId = new StringBuilder();
+        userId.append(graduateYear)
+                .append(collegeId.length() > 1 ? collegeId : "0" + collegeId)
+                .append(majorId.length() > 1 ? majorId : "0" + majorId)
+                .append(classId.length() > 1 ? classId : "0" + classId)
+                .append(orderNum.length() > 2 ? orderNum : orderNum.length() > 1 ? "0" + orderNum : "00" + orderNum);
+        return userId;
     }
 
 }

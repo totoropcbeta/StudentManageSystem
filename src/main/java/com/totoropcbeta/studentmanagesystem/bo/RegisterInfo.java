@@ -13,6 +13,8 @@ import lombok.Data;
 public class RegisterInfo {
     @ApiModelProperty(required = true, value = "用户姓名")
     private String userName;
+    @ApiModelProperty(required = true, value = "用户身份证")
+    private String idCard;
     @ApiModelProperty(required = true, value = "用户密码")
     private String password;
     @ApiModelProperty(required = true, value = "用户手机号")
