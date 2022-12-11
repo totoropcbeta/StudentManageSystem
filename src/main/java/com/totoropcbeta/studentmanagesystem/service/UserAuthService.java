@@ -1,6 +1,7 @@
 package com.totoropcbeta.studentmanagesystem.service;
 
 import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
+import com.totoropcbeta.studentmanagesystem.bo.RegisterInfo;
 
 /**
  * @author yuanhang08
@@ -13,4 +14,6 @@ public interface UserAuthService {
     void logout();
 
     AccessToken refreshToken(String token);
+
+    String register(RegisterInfo registerInfo);
 }

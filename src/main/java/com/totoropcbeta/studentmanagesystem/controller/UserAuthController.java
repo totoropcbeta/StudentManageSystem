@@ -2,6 +2,7 @@ package com.totoropcbeta.studentmanagesystem.controller;
 
 import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
 import com.totoropcbeta.studentmanagesystem.bo.LoginInfo;
+import com.totoropcbeta.studentmanagesystem.bo.RegisterInfo;
 import com.totoropcbeta.studentmanagesystem.provider.JwtProvider;
 import com.totoropcbeta.studentmanagesystem.service.UserAuthService;
 import com.totoropcbeta.studentmanagesystem.vo.ResultVo;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 
 /**
  * @author yuanhang08
@@ -31,6 +33,15 @@ public class UserAuthController {
     @Autowired
     private JwtProvider jwtProvider;
 
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ApiOperation(value = "注册账号")
+    public ResultVo register(@Valid @RequestBody RegisterInfo registerInfo) {
+        String userId = userAuthService.register(registerInfo);
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("user_id", userId);
+        return ResultVo.success(hashMap);
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "登录账号")
     public ResultVo login(@Valid @RequestBody LoginInfo loginInfo) {
@@ -39,7 +50,7 @@ public class UserAuthController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    @ApiOperation(value = "注销账号")
+    @ApiOperation(value = "登出账号")
     public ResultVo logout() {
         userAuthService.logout();
         return ResultVo.success("success");

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.totoropcbeta.studentmanagesystem.mapper.MatriculateStudentMapper">
+    <resultMap id="BaseResultMap" type="com.totoropcbeta.studentmanagesystem.entity.MatriculateStudent">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="college_id" jdbcType="TINYINT" property="collegeId"/>
+        <result column="major_id" jdbcType="TINYINT" property="majorId"/>
+        <result column="class_id" jdbcType="TINYINT" property="classId"/>
+        <result column="order_num" jdbcType="TINYINT" property="orderNum"/>
+        <result column="matriculate_year" jdbcType="DATE" property="matriculateYear"/>
+        <result column="graduate_year" jdbcType="DATE" property="graduateYear"/>
+        <result column="is_registered" jdbcType="TINYINT" property="isRegistered"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, `name`, id_card, college_id, major_id, class_id, order_num, matriculate_year,
+        graduate_year, is_registered, create_time, update_time
+    </sql>
+    <select id="selectByExample"
+            parameterType="com.totoropcbeta.studentmanagesystem.entity.example.MatriculateStudentExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from matriculate_student
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from matriculate_student
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from matriculate_student
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample"
+            parameterType="com.totoropcbeta.studentmanagesystem.entity.example.MatriculateStudentExample">
+        delete from matriculate_student
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.totoropcbeta.studentmanagesystem.entity.MatriculateStudent">
+        insert into matriculate_student (id, `name`, id_card,
+                                         college_id, major_id, class_id,
+                                         order_num, matriculate_year, graduate_year,
+                                         is_registered, create_time, update_time)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
+                #{collegeId,jdbcType=TINYINT}, #{majorId,jdbcType=TINYINT}, #{classId,jdbcType=TINYINT},
+                #{orderNum,jdbcType=TINYINT}, #{matriculateYear,jdbcType=DATE}, #{graduateYear,jdbcType=DATE},
+                #{isRegistered,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.totoropcbeta.studentmanagesystem.entity.MatriculateStudent">
+        insert into matriculate_student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
+            <if test="collegeId != null">
+                college_id,
+            </if>
+            <if test="majorId != null">
+                major_id,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="matriculateYear != null">
+                matriculate_year,
+            </if>
+            <if test="graduateYear != null">
+                graduate_year,
+            </if>
+            <if test="isRegistered != null">
+                is_registered,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="collegeId != null">
+                #{collegeId,jdbcType=TINYINT},
+            </if>
+            <if test="majorId != null">
+                #{majorId,jdbcType=TINYINT},
+            </if>
+            <if test="classId != null">
+                #{classId,jdbcType=TINYINT},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=TINYINT},
+            </if>
+            <if test="matriculateYear != null">
+                #{matriculateYear,jdbcType=DATE},
+            </if>
+            <if test="graduateYear != null">
+                #{graduateYear,jdbcType=DATE},
+            </if>
+            <if test="isRegistered != null">
+                #{isRegistered,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <insert id="batchInsertSelective" parameterType="com.totoropcbeta.studentmanagesystem.entity.MatriculateStudent">
+        insert into matriculate_student
+        (name, id_card, college_id, major_id, class_id, order_num, matriculate_year, graduate_year)
+        values
+        <foreach collection="record" separator="," item="item">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.id != null">
+                    #{item.id,jdbcType=INTEGER},
+                </if>
+                <if test="item.name != null">
+                    #{item.name,jdbcType=VARCHAR},
+                </if>
+                <if test="item.idCard != null">
+                    #{item.idCard,jdbcType=VARCHAR},
+                </if>
+                <if test="item.collegeId != null">
+                    #{item.collegeId,jdbcType=TINYINT},
+                </if>
+                <if test="item.majorId != null">
+                    #{item.majorId,jdbcType=TINYINT},
+                </if>
+                <if test="item.classId != null">
+                    #{item.classId,jdbcType=TINYINT},
+                </if>
+                <if test="item.orderNum != null">
+                    #{item.orderNum,jdbcType=TINYINT},
+                </if>
+                <if test="item.matriculateYear != null">
+                    #{item.matriculateYear,jdbcType=DATE},
+                </if>
+                <if test="item.graduateYear != null">
+                    #{item.graduateYear,jdbcType=DATE},
+                </if>
+                <if test="item.isRegistered != null">
+                    #{item.isRegistered,jdbcType=TINYINT},
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.updateTime != null">
+                    #{item.updateTime,jdbcType=TIMESTAMP},
+                </if>
+            </trim>
+        </foreach>
+
+    </insert>
+    <select id="countByExample"
+            parameterType="com.totoropcbeta.studentmanagesystem.entity.example.MatriculateStudentExample"
+            resultType="java.lang.Long">
+        select count(*) from matriculate_student
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update matriculate_student
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.name != null">
+                `name` = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.idCard != null">
+                id_card = #{record.idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="record.collegeId != null">
+                college_id = #{record.collegeId,jdbcType=TINYINT},
+            </if>
+            <if test="record.majorId != null">
+                major_id = #{record.majorId,jdbcType=TINYINT},
+            </if>
+            <if test="record.classId != null">
+                class_id = #{record.classId,jdbcType=TINYINT},
+            </if>
+            <if test="record.orderNum != null">
+                order_num = #{record.orderNum,jdbcType=TINYINT},
+            </if>
+            <if test="record.matriculateYear != null">
+                matriculate_year = #{record.matriculateYear,jdbcType=DATE},
+            </if>
+            <if test="record.graduateYear != null">
+                graduate_year = #{record.graduateYear,jdbcType=DATE},
+            </if>
+            <if test="record.isRegistered != null">
+                is_registered = #{record.isRegistered,jdbcType=TINYINT},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update matriculate_student
+        set id = #{record.id,jdbcType=INTEGER},
+        `name` = #{record.name,jdbcType=VARCHAR},
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+        college_id = #{record.collegeId,jdbcType=TINYINT},
+        major_id = #{record.majorId,jdbcType=TINYINT},
+        class_id = #{record.classId,jdbcType=TINYINT},
+        order_num = #{record.orderNum,jdbcType=TINYINT},
+        matriculate_year = #{record.matriculateYear,jdbcType=DATE},
+        graduate_year = #{record.graduateYear,jdbcType=DATE},
+        is_registered = #{record.isRegistered,jdbcType=TINYINT},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.totoropcbeta.studentmanagesystem.entity.MatriculateStudent">
+        update matriculate_student
+        <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="collegeId != null">
+                college_id = #{collegeId,jdbcType=TINYINT},
+            </if>
+            <if test="majorId != null">
+                major_id = #{majorId,jdbcType=TINYINT},
+            </if>
+            <if test="classId != null">
+                class_id = #{classId,jdbcType=TINYINT},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum,jdbcType=TINYINT},
+            </if>
+            <if test="matriculateYear != null">
+                matriculate_year = #{matriculateYear,jdbcType=DATE},
+            </if>
+            <if test="graduateYear != null">
+                graduate_year = #{graduateYear,jdbcType=DATE},
+            </if>
+            <if test="isRegistered != null">
+                is_registered = #{isRegistered,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.totoropcbeta.studentmanagesystem.entity.MatriculateStudent">
+        update matriculate_student
+        set `name`           = #{name,jdbcType=VARCHAR},
+            id_card          = #{idCard,jdbcType=VARCHAR},
+            college_id       = #{collegeId,jdbcType=TINYINT},
+            major_id         = #{majorId,jdbcType=TINYINT},
+            class_id         = #{classId,jdbcType=TINYINT},
+            order_num        = #{orderNum,jdbcType=TINYINT},
+            matriculate_year = #{matriculateYear,jdbcType=DATE},
+            graduate_year    = #{graduateYear,jdbcType=DATE},
+            is_registered    = #{isRegistered,jdbcType=TINYINT},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            update_time      = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

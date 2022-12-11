@@ -1,6 +1,7 @@
 package com.totoropcbeta.studentmanagesystem.service.impl;
 
 import com.totoropcbeta.studentmanagesystem.bo.AccessToken;
+import com.totoropcbeta.studentmanagesystem.bo.RegisterInfo;
 import com.totoropcbeta.studentmanagesystem.bo.UserDetail;
 import com.totoropcbeta.studentmanagesystem.cache.Cache;
 import com.totoropcbeta.studentmanagesystem.enums.CacheName;
@@ -67,4 +68,10 @@ public class UserAuthServiceImpl implements UserAuthService {
         caffeineCache.put(CacheName.USER, accessToken.getUserId(), userDetail);
         return accessToken;
     }
+
+    @Override
+    public String register(RegisterInfo registerInfo) {
+        return null;
+    }
+
 }

@@ -114,7 +114,7 @@
         </javaClientGenerator>
 
         <!--需要自动生成代码的表及对应的类名设置-->
-        <table tableName="permission_info" domainObjectName="PermissionInfo"
+        <table tableName="matriculate_student" domainObjectName="MatriculateStudent"
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
